@@ -1,0 +1,36 @@
+email_review_task:
+  description: >
+    Analyze the provided email content {email_content} from date {scan_date} and identify all action items, tasks, or commitments.
+    Look for both explicit tasks (like "Please send me the report") and implicit commitments (like "I'll get back to you next week").
+    For each action identified, extract:
+    1. The specific action required
+    2. Any mentioned deadline or due date
+    3. The priority (high/medium/low) based on language and context
+    4. Any additional context needed to understand the task
+  expected_output: >
+    A structured list of action items extracted from the email in JSON format:
+    [
+      {
+        "action": "specific action description",
+        "due_date": "YYYY-MM-DD" or "flexible description like 'next week'",
+        "priority": "high/medium/low",
+        "context": "additional relevant information"
+      }
+    ]
+  agent: email_reviewer
+
+reminder_creation_task:
+  description: >
+    Create Apple Reminders based on the action items extracted from the email.
+    For each action item:
+    1. Create a clear, concise title
+    2. Determine an appropriate due date (if not explicitly stated, make a reasonable inference)
+    3. Set appropriate priority flags (high priority = ‼️, medium = ❗, low = none)
+    4. Include relevant context in the notes section
+  expected_output: >
+    A confirmation of reminders created, formatted as:
+    "Created [number] reminders:
+    1. "[reminder_title]" - Due: [due_date] - Priority: [priority]
+    2. "[reminder_title]" - Due: [due_date] - Priority: [priority]
+    ..."
+  agent: actions_updater

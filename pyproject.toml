@@ -1,0 +1,27 @@
+[project]
+name = "email_scan"
+version = "0.1.0"
+description = "email_scan using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai[tools]>=0.102.0,<1.0.0",
+    "mcp>=1.9.4",
+    "boto3>=1.28.0",
+    "langchain-aws>=0.1.0",
+    "crewai-tools[mcp]>=0.47.1",
+]
+
+[project.scripts]
+email_scan = "email_scan.main:run"
+run_crew = "email_scan.main:run"
+train = "email_scan.main:train"
+replay = "email_scan.main:replay"
+test = "email_scan.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
